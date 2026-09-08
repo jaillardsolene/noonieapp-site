@@ -80,7 +80,7 @@
 }
 
 @media (min-width: 860px) {
-  .hero-grid { grid-template-columns: 1fr 0.92fr; gap: 52px; }
+  .hero-grid { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 34px; }
 }
 
 .hero h1 {
@@ -108,34 +108,38 @@
 }
 
 /* ---- le visuel du hero ------------------------------------------------- */
-/* Image marketing fournie par la designer, pas une maquette interne : elle
-   porte un `alt` descriptif normal et n'est pas masquée au lecteur d'écran.
-   La règle `chartLocked.sampleLabel` ne s'y applique pas — elle protège un
-   utilisateur DANS l'app contre la confusion avec ses propres données, or
-   personne ne peut confondre un visuel de site avec des données qu'il n'a
-   pas encore. L'étiquette « Mockup » et l'`aria-hidden` tombent avec elle.
+/* Image marketing fournie par la designer, pas une maquette interne : `alt`
+   descriptif normal, aucun `aria-hidden`, aucune étiquette. La règle
+   `chartLocked.sampleLabel` ne s'y applique pas — elle protège un utilisateur
+   DANS l'app contre la confusion avec ses propres données, et personne ne peut
+   confondre un visuel de site avec des données qu'il n'a pas encore.
 
-   Le rapport largeur/hauteur suit l'image fournie, jamais l'inverse. */
+   ⚠️ GARDE POUR UNE SESSION FUTURE — À LIRE AVANT DE CHANGER CETTE IMAGE.
+   Le fichier employé (`danio-app.webp`, depuis `design/landing/01.png`) ne
+   porte AUCUN texte sur fond transparent : tous ses libellés sont soit dans
+   une pastille blanche opaque, soit sur l'écran du téléphone. C'est ce qui
+   permet de le poser directement sur la page dans les deux thèmes.
+   La version précédente (`home.png`) portait, elle, un titre cuit en #212130
+   sur fond transparent, MESURÉ à 1,11:1 sur le fond sombre — invisible. Il
+   avait fallu lui glisser une plaque claire dessous. Cette plaque est retirée
+   avec l'image qui la rendait nécessaire (règle transverse 6). Reposer une
+   image à texte sombre sur transparence sans remettre la plaque REPRODUIRAIT
+   le défaut. */
 
 .hero-visual {
   display: block;
   width: 100%;
-  max-width: 520px;
+  max-width: 620px;
   margin: 0 auto;
-  border-radius: 26px;
-  /* Plaque : transparente en clair, dégradé clair en sombre. C'est ce qui
-     rend lisible l'encre cuite dans l'image, mesurée à 1,11:1 sur le fond
-     sombre. Voir `--visual-plate` dans site.css. */
-  background: var(--visual-plate);
 }
 
 .hero-visual img {
   display: block;
   width: 100%;
   height: auto;
-  /* Rapport de `danio-home.webp` : 1120 × 1091. Déclaré pour que la page ne
+  /* Rapport de `danio-app.webp` : 1240 × 839. Déclaré pour que la page ne
      saute pas pendant le chargement. */
-  aspect-ratio: 1120 / 1091;
+  aspect-ratio: 1240 / 839;
 }
 
 /* ---- 2 · FONCTIONNALITÉS ----------------------------------------------- */
@@ -253,7 +257,12 @@
   font-weight: 800;
   letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: var(--ink-tertiary);
+  /* `--ink-secondary`, pas `--ink-tertiary` : ce libellé nomme une offre, ce
+     n'est pas de la métadonnée de troisième niveau. Mesuré sur la surface de
+     carte sombre (#3E3E4E), le tertiaire tombait à 3,55:1 — sous l'AA sans
+     être couvert par l'arbitrage d'ux.md §3.2, qui ne vaut que pour du texte
+     de troisième niveau. Le secondaire y tient 5,16:1. */
+  color: var(--ink-secondary);
 }
 
 .plan-paid .plan-name {

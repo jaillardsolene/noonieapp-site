@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NoonieApp</title>
-<meta name="description" content="Small utility apps. No accounts, no ads, no tracking beyond what you can read here.">
+<meta name="description" content="Small utility apps. No accounts, no ads, lifetime available.">
 <meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
-<body>
+<body class="home-page">
 
 <header class="site-header">
   <div class="wrap"><a class="wordmark" href="/">NoonieApp</a></div>
@@ -19,25 +19,43 @@
 
 <main>
   <div class="wrap">
-    <div class="intro">
-      <div>
-        <h1>NoonieApp</h1>
-        <p class="lede">Small utility apps. No accounts, no ads, no tracking beyond what you can read here.</p>
-      </div>
-      <!-- Recadrage du visuel de Danio, à échelle modeste. Choisi parce qu'il
-           ne contient AUCUN texte : aucune copie marketing d'une app ne
-           déborde sur la page du portefeuille, qui en listera d'autres. -->
-      <img class="intro-art" src="/assets/danio-home-crop.webp"
-           width="660" height="718"
-           alt="A koi beside the top of Danio's home screen.">
-    </div>
 
-    <a class="card" href="/danio">
-      <p class="card-title">Danio</p>
-      <p class="card-sub">Freshwater aquarium tracker</p>
-      <!-- Placeholder : remplacer par le lien App Store réel à la publication. -->
-      <span class="store-badge">Coming soon on the App Store</span>
+    <!-- Hero. Texte du mockup de la designer (08/09/2026), verbatim. Il
+         remplace le sous-titre de `noonieapp-site-content-v1.md` sur cette
+         page — décision de la designer, ne pas le remettre. -->
+    <section class="home-hero">
+      <h1>NoonieApp</h1>
+      <p class="lede">Small utility apps.</p>
+      <p>No accounts, no ads, lifetime available.</p>
+    </section>
+
+    <!-- ================= ENTRÉE D'APP — PATRON DU PORTEFEUILLE =================
+         Pour ajouter une app (terrarium, ruche) : dupliquer ce bloc, changer
+         l'icône, le nom, le sous-titre et le visuel. Rien d'autre.
+         L'entrée entière mène à la page de l'app. -->
+    <a class="app-entry" href="/danio">
+      <div>
+        <img class="app-entry-icon" src="/assets/danio-icon.webp"
+             width="220" height="220" alt="Danio app icon.">
+        <p class="app-entry-name">Danio</p>
+        <p class="app-entry-sub">Aquarium Care Tracker</p>
+
+        <!-- ⚠️ LIEN APP STORE À BRANCHER ICI À LA PUBLICATION.
+             Le badge n'a aujourd'hui AUCUN lien propre : l'app n'est pas
+             publiée, aucune fiche n'existe. Il hérite du lien de l'entrée,
+             qui mène à /danio. Le jour de la publication, l'envelopper dans
+             un <a href="https://apps.apple.com/app/id…"> — et, ce jour-là,
+             sortir cette image du <a class="app-entry"> pour qu'un tap sur
+             le badge n'aille plus vers /danio. -->
+        <img class="store-badge" src="/assets/app-store-badge.webp"
+             width="400" height="119" alt="Download on the App Store">
+      </div>
+
+      <img class="app-entry-art" src="/assets/danio-app.webp"
+           width="1240" height="839"
+           alt="Danio's home screen: water parameters and fish stock.">
     </a>
+
   </div>
 </main>
 

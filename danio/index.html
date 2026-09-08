@@ -50,17 +50,22 @@
           <p class="hero-lede">Track your aquarium's water, feedings, and maintenance — nothing else.</p>
           <!-- 3e paragraphe du même document, mot pour mot -->
           <p class="hero-note">Everything you enter stays on your device. No account, no server.</p>
-          <!-- Placeholder : remplacer par le lien App Store réel à la publication. -->
-          <span class="store-badge">Coming soon on the App Store</span>
+          <!-- ⚠️ LIEN APP STORE À BRANCHER ICI À LA PUBLICATION.
+               Aucun lien aujourd'hui : l'app n'est pas publiée, aucune fiche
+               n'existe. L'envelopper alors dans
+               <a href="https://apps.apple.com/app/id…">. -->
+          <img class="store-badge" src="/assets/app-store-badge.webp"
+               width="400" height="119" alt="Download on the App Store">
         </div>
 
         <!-- Visuel marketing fourni par la designer
-             (`apps/aquarium/design/landing/home.png`, monorepo Danio),
+             (`apps/aquarium/design/landing/01.png`, monorepo Danio),
              redimensionné pour le web. Ce n'est PAS une maquette interne :
              `alt` descriptif, aucun `aria-hidden`, aucune étiquette. Voir le
-             commentaire de `.hero-visual` dans app-page.css. -->
+             ⚠️ Avant de remplacer cette image, lire la garde en tête de
+             `.hero-visual` dans app-page.css. -->
         <div class="hero-visual">
-          <img src="/assets/danio-home.webp" width="1120" height="1091"
+          <img src="/assets/danio-app.webp" width="1240" height="839"
                alt="Danio's home screen: water parameters and fish stock.">
         </div>
 
@@ -192,8 +197,10 @@
       <h2>Danio</h2>
       <!-- « Freshwater aquarium tracker » : la carte de l'accueil, verbatim. -->
       <p>Freshwater aquarium tracker</p>
-      <!-- Placeholder : remplacer par le lien App Store réel à la publication. -->
-      <span class="store-badge">Coming soon on the App Store</span>
+      <!-- ⚠️ LIEN APP STORE À BRANCHER ICI À LA PUBLICATION (voir le hero). -->
+      <img class="store-badge" src="/assets/app-store-badge.webp"
+           width="400" height="119" alt="Download on the App Store"
+           style="margin-inline:auto">
     </div>
   </section>
 

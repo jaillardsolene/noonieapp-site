@@ -9,6 +9,10 @@
   --ink-secondary: #656587;
   --ink-tertiary:  #727296;
   --bg-page:       linear-gradient(180deg, #EAF6FA 0%, #CFE2E9 100%);
+  /* Couleur du bas du dégradé, posée en `background-color` sous l'image :
+     toute surface que l'image ne couvrirait pas prend cette teinte, jamais
+     le gris par défaut du navigateur. */
+  --bg-page-end:   #CFE2E9;
   --surface:       #FFFFFF;
   --border:        rgba(59, 59, 79, 0.12);   /* dérivé */
   --accent-link:   #62629F;
@@ -16,15 +20,9 @@
   --accent-label:  #08333C;
   --ink-muted:     #8282A1;
   --shadow-card:   0 6px 16px rgba(59, 59, 79, 0.10);
-  /* Plaque des visuels marketing. En thème CLAIR : rien — l'image se pose
-     directement sur la page, comme la designer l'a composée. */
-  --visual-plate:  transparent;
   --shadow-card-raised: 0 10px 30px rgba(59, 59, 79, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.70);
   /* §3.8, halo radial de matière — transcrit tel quel */
   --halo-action:   radial-gradient(circle, rgba(37, 198, 219, 0.32), rgba(37, 198, 219, 0) 70%);
-  --warn-bg:       rgba(213, 94, 0, 0.10);
-  --warn-border:   rgba(213, 94, 0, 0.22);
-  --warn-ink:      #B44E00;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,38 +31,52 @@
     --ink-secondary: #B4B4CC;                /* dérivé */
     --ink-tertiary:  #9494B0;                /* dérivé */
     --bg-page:       linear-gradient(180deg, #29293A 0%, #0E0E15 100%);
+    --bg-page-end:   #0E0E15;
     --surface:       #3E3E4E;
     --border:        rgba(255, 255, 255, 0.12);  /* dérivé */
     --accent-link:   #9E9ED4;
     --ink-muted:     #7E7E9C;                /* dérivé */
     --shadow-card:   0 6px 16px rgba(0, 0, 0, 0.28);
-    /* En thème SOMBRE, l'image reçoit une plaque du dégradé CLAIR. Motif
-       mesuré : l'encre du titre cuit dans `danio-home.webp` vaut #212130 et
-       tombe à 1,11:1 sur #29293A — invisible. La plaque lui rend les 14,39:1
-       du thème clair, SANS retoucher l'image ni inventer une variante sombre
-       qu'aucun document ne fournit. */
-    --visual-plate:  linear-gradient(180deg, #EAF6FA 0%, #CFE2E9 100%);
     --shadow-card-raised: 0 10px 30px rgba(0, 0, 0, 0.34), inset 0 1px 1px rgba(255, 255, 255, 0.06);
     --halo-action:   radial-gradient(circle, rgba(37, 198, 219, 0.16), rgba(37, 198, 219, 0) 70%);
-    --warn-bg:       rgba(224, 169, 60, 0.12);
-    --warn-border:   rgba(224, 169, 60, 0.28);
-    --warn-ink:      #E0A93C;
   }
 }
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+/* ---- LE FOND ------------------------------------------------------------
+   Le dégradé vit sur `html`, PAS sur `body`, et c'est la correction du
+   08/09/2026 : porté par `body`, il était borné à `min-height: 100vh`, donc
+   sur une page courte il se terminait au bas de la première fenêtre et
+   laissait, sous le filet du pied, un aplat sombre qui se lisait comme une
+   bande grise.
 
-/* Le dégradé n'est PAS `background-attachment: fixed` : il s'étire sur toute la
-   hauteur du document, donc descendre la page, c'est descendre dans l'eau — de la
-   surface claire au fond. C'est la matière du domaine portée par la mise en page,
-   pas par une icône. Sur une app 2 (terre, paille), le même dispositif rend la
-   même chose avec ses propres arrêts : seul --bg-page change. */
+   Porté par `html`, il s'étire sur toute la hauteur du DOCUMENT. Il n'est pas
+   `fixed` : descendre la page, c'est descendre dans l'eau, de la surface
+   claire au fond. C'est la matière du domaine portée par la mise en page.
+
+   Aucun bloc de fond n'est posé par section, nulle part : une seule source,
+   ici. Sur une app 2 (terre, paille), seul `--bg-page` change.
+
+   `no-repeat` + `background-color` sont la ceinture et les bretelles : sans
+   `no-repeat`, un dégradé plus court que le canevas se RÉPÈTE et produit une
+   couture ; la couleur de fond couvre ce que l'image ne couvre pas. */
+html {
+  -webkit-text-size-adjust: 100%;
+  min-height: 100%;
+  background-color: var(--bg-page-end);
+  background-image: var(--bg-page);
+  background-repeat: no-repeat;
+}
+
+/* `body` en colonne flex + `main` extensible : sur une page courte, le pied
+   descend au bas de la fenêtre au lieu de laisser un vide sous son filet —
+   c'est l'autre moitié de la bande grise. */
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--bg-page);
+  display: flex;
+  flex-direction: column;
   color: var(--ink-primary);
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   font-weight: 500;
@@ -98,7 +110,7 @@ body {
 
 /* ---- contenu ---- */
 
-main { padding: 44px 0 20px; }
+main { padding: 44px 0 20px; flex: 1 0 auto; }
 
 h1 {
   margin: 0 0 12px;
@@ -176,36 +188,27 @@ a.card:hover { box-shadow: 0 10px 30px rgba(59, 59, 79, 0.14); }
   font-size: 15px;
 }
 
-/* ---- bouton store (placeholder tant que l'app n'est pas publiée) ---- */
+/* ---- badge App Store ---------------------------------------------------
+   Image fournie par Apple (`design/landing/03.png`), reproduite telle quelle,
+   jamais redessinée. Elle porte sa bordure grise d'origine, ce qui la garde
+   visible sur le fond sombre.
+
+   ⚠️ ELLE NE MÈNE À AUCUNE FICHE : l'app n'est pas publiée. Le point exact où
+   brancher le vrai lien est marqué en commentaire dans CHAQUE page qui
+   l'affiche — chercher « LIEN APP STORE À BRANCHER ». */
 
 .store-badge {
-  display: inline-block;
-  background: var(--accent-action);
-  color: var(--accent-label);
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.2px;
-  padding: 13px 22px;
-  border-radius: 20px;
+  display: block;
+  width: 170px;
+  height: auto;
 }
 
-/* ---- encadré d'avertissement ---- */
-
-.notice {
-  background: var(--warn-bg);
-  border: 1px solid var(--warn-border);
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin: 0 0 28px;
-  color: var(--warn-ink);
-  font-size: 14px;
-}
-
-.notice p { margin: 0; }
+@media (max-width: 560px) { .store-badge { width: 150px; } }
 
 /* ---- pied de page ---- */
 
 .site-footer {
+  flex: none;
   margin-top: 56px;
   padding: 22px 0 40px;
   border-top: 1px solid var(--border);
@@ -226,33 +229,82 @@ a.card:hover { box-shadow: 0 10px 30px rgba(59, 59, 79, 0.14); }
 }
 
 
-/* ---- accueil du portefeuille : intro + accent visuel -------------------- */
-/* Volontairement plus modeste que le hero d'une page app : cette page listera
-   d'autres apps, elle ne doit pas devenir la vitrine de la première. */
+/* ---- accueil du portefeuille -------------------------------------------- */
+/* Comme une page app, l'accueil est plus large que les pages de texte : le
+   720 px de `.wrap` convient à de la prose, pas à un bloc app à deux colonnes. */
+.home-page .wrap { max-width: 1000px; }
 
-.intro {
+
+.home-hero {
+  text-align: center;
+  padding: 30px 0 20px;
+}
+
+.home-hero h1 {
+  margin: 0 0 12px;
+  font-size: clamp(40px, 7vw, 58px);
+  letter-spacing: -1.4px;
+  line-height: 1.05;
+}
+
+.home-hero .lede {
+  margin: 0 0 6px;
+  font-size: clamp(19px, 2.4vw, 22px);
+  font-weight: 700;
+  color: var(--ink-primary);
+}
+
+.home-hero p:last-child { margin: 0; color: var(--ink-secondary); font-size: 17px; }
+
+/* ---- ENTRÉE D'APP — le patron du portefeuille ---------------------------
+   Une entrée par app. Pour en ajouter une (terrarium, ruche), on duplique ce
+   bloc et on change l'icône, le nom, le sous-titre et le visuel : aucune
+   règle de mise en page ne bouge, et le filet du haut sépare les entrées
+   entre elles. Aucune carte à ombre : le visuel a des pastilles qui
+   débordent, et une carte à `overflow: hidden` les couperait. */
+
+.app-entry {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 26px;
+  gap: 24px;
   align-items: center;
-  margin-bottom: 40px;
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
 }
 
-@media (min-width: 700px) {
-  .intro { grid-template-columns: 1fr minmax(200px, 290px); gap: 40px; }
+@media (min-width: 760px) {
+  .app-entry { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 40px; }
 }
 
-.intro h1 { margin-bottom: 10px; }
-.intro .lede { margin-bottom: 0; }
-
-.intro-art {
-  width: 100%;
-  height: auto;
+.app-entry-icon {
+  width: 76px;
+  height: 76px;
   display: block;
-  justify-self: end;
-  /* Le recadrage coupe le téléphone net en bas. Le fondu rend la coupe
-     intentionnelle au lieu de la laisser franche — et il fonctionne dans les
-     deux thèmes, puisqu'il ne fait que révéler le fond de la page. */
-  -webkit-mask-image: linear-gradient(180deg, #000 76%, transparent 100%);
-          mask-image: linear-gradient(180deg, #000 76%, transparent 100%);
+  margin-bottom: 18px;
+}
+
+.app-entry-name {
+  margin: 0 0 4px;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.app-entry-sub {
+  margin: 0 0 22px;
+  color: var(--ink-secondary);
+  font-size: 16px;
+}
+
+.app-entry-art { width: 100%; height: auto; display: block; }
+
+a.app-entry:hover .app-entry-name { color: var(--accent-link); }
+
+@media (max-width: 759px) {
+  .app-entry { text-align: center; justify-items: center; }
+  .app-entry-icon { margin-inline: auto; }
+  .app-entry .store-badge { margin-inline: auto; }
 }
