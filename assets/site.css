@@ -255,7 +255,7 @@ strong { font-weight: 700; }
   text-align: left;
 }
 
-@media (min-width: 760px) {
+@media (min-width: 800px) {
   .app-entry {
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: 36px;
@@ -290,15 +290,40 @@ strong { font-weight: 700; }
      restait dans la carte à 900 px (débordement 33 px) et à 760 px (20 px),
      parce que le 39 px fixe pèse de plus en plus lourd à mesure que l'image
      rétrécit. Le `calc` le compense terme à terme, et la propriété tient à
-     toutes les largeurs. Les 3 px sont la marge qui dégage le nom du filet. */
+     toutes les largeurs où la carte est à deux colonnes. Les 3 px sont la marge qui dégage le nom du filet. */
   /* `align-self: start` : sans lui, dès que la colonne de gauche devient
-     plus haute que le visuel (mesuré à 760 px), `align-items: center` le
+     plus haute que le visuel, `align-items: center` le
      recentre dans sa rangée et mange le débordement — 26 px au lieu de 35,
      et « Nano » repassait dans la carte. Ancré en haut, le débordement vaut
      toujours exactement la marge. */
+  /* ---- desktop ÉTROIT (800-999 px) -------------------------------------
+     En dessous de 1000 px, le gabarit n'est plus plafonné : les colonnes
+     rétrécissent, le visuel avec elles, et sa boîte de marge finit par
+     passer SOUS la hauteur de la colonne de texte. C'est alors le texte qui
+     dimensionne la carte, et le bas du visuel ne l'atteint plus — mesuré :
+     6 px d'écart à 900, 13 px à 880, 51 px à 760. Le seuil des deux
+     colonnes est d'ailleurs remonté de 760 à 800 px pour la même raison :
+     en dessous, la colonne de texte gouverne quoi qu'on fasse, et le bas ne
+     colle plus. L'iPad en portrait (768 px) prend donc la carte compacte,
+     sans visuel — ce qui vaut mieux qu'une carte à deux colonnes à l'écart
+     bas de 15 px.
+
+     On rend un peu de largeur au visuel sur cette plage seule, ce qui le
+     rend assez haut pour redevenir le dimensionnant. La composition large,
+     elle, ne bouge pas. */
+  @media (max-width: 999px) {
+    .app-entry { grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr); }
+  }
+
   .app-entry-art {
     align-self: start;
     margin-top: calc(-42px - 8.82%);
+    /* Le bas doit toucher le bord bas, comme le haut traverse le bord haut :
+       sans cette marge, l'image s'arrête à la boîte de contenu et laisse
+       flotter les 38 px de rembourrage bas. La marge négative la fait
+       traverser ce rembourrage jusqu'au filet. Elle raccourcit la carte
+       d'autant, ce qui est exactement « réduire la hauteur du conteneur ». */
+    margin-bottom: -38px;
   }
 }
 
@@ -354,10 +379,10 @@ strong { font-weight: 700; }
 
 .app-entry-art { width: 100%; height: auto; display: block; }
 
-/* ⚠️ En dessous de 760 px, le visuel du téléphone DISPARAÎT entièrement :
+/* ⚠️ En dessous de 800 px, le visuel du téléphone DISPARAÎT entièrement :
    la carte n'a plus qu'une colonne. `loading="lazy"` sur l'image fait que
    les navigateurs ne la téléchargent pas quand elle n'a pas de rendu. */
-@media (max-width: 759px) {
+@media (max-width: 799px) {
   .app-entry-art { display: none; }
 }
 }
