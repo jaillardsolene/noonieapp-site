@@ -261,6 +261,45 @@ strong { font-weight: 700; }
     gap: 36px;
     padding: 38px 40px;
   }
+
+  /* ---- le visuel déborde par le HAUT, desktop uniquement --------------
+     Le visuel n'est pas centré dans la carte : son haut — l'encoche caméra
+     et le nom du bac — passe AU-DESSUS de la bordure supérieure, et son bas
+     reste au ras du rembourrage inférieur. Asymétrique, voulu.
+
+     Pourquoi `margin-top` négatif et pas `translateY` : la marge agit sur la
+     mise en page, donc la carte se raccourcit d'autant et le bas du visuel
+     reste collé au rembourrage bas. Un `translateY` ne déplacerait que le
+     rendu : le bas remonterait et rouvrirait un vide en bas de carte, ce que
+     la demande refuse.
+
+     Pourquoi un POURCENTAGE et pas des pixels : un `margin-top` en % se
+     résout sur la LARGEUR du bloc conteneur — ici la colonne de grille, qui
+     est aussi ce qui dimensionne l'image. L'écart reste donc proportionnel à
+     l'image à toutes les largeurs d'écran, ce qu'une valeur en px ne ferait
+     pas (trop de débordement sur un écran étroit).
+
+     Le chiffre, et pourquoi c'est un `calc` et pas un pourcentage seul :
+     le bas de « Nano » est à 240 px sur les 1840 de `01.png`, soit 13,04 %
+     de la hauteur de l'image, soit **8,82 % de la largeur** de colonne
+     (l'image a un rapport 1240 × 839). Il faut donc franchir ce 8,82 %
+     PLUS les 39 px de rembourrage et de filet, qui, eux, ne varient pas
+     avec la largeur.
+
+     Un pourcentage seul échouait en dessous de ~1000 px : mesuré, « Nano »
+     restait dans la carte à 900 px (débordement 33 px) et à 760 px (20 px),
+     parce que le 39 px fixe pèse de plus en plus lourd à mesure que l'image
+     rétrécit. Le `calc` le compense terme à terme, et la propriété tient à
+     toutes les largeurs. Les 3 px sont la marge qui dégage le nom du filet. */
+  /* `align-self: start` : sans lui, dès que la colonne de gauche devient
+     plus haute que le visuel (mesuré à 760 px), `align-items: center` le
+     recentre dans sa rangée et mange le débordement — 26 px au lieu de 35,
+     et « Nano » repassait dans la carte. Ancré en haut, le débordement vaut
+     toujours exactement la marge. */
+  .app-entry-art {
+    align-self: start;
+    margin-top: calc(-42px - 8.82%);
+  }
 }
 
 /* icône, nom et cercle-flèche sur UNE ligne, centrés l'un sur l'autre */
