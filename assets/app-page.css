@@ -14,6 +14,14 @@
    ni clients ni avis, et il n'y a pas de serveur pour recevoir une adresse.
    ========================================================================= */
 
+/* ---- gabarit ------------------------------------------------------------ */
+/* Une page app est plus large qu'une page de texte : `site.css` plafonne
+   `.wrap` à 720 px, ce qui convient à de la prose mais étrangle un hero.
+   La classe est posée sur `<body>`, donc l'en-tête et le pied s'alignent
+   sur le contenu au lieu de flotter à une autre largeur. */
+.landing .wrap { max-width: 1080px; }
+.landing .section h2 { max-width: 24ch; }
+
 /* ---- rythme des sections : on descend dans l'eau ------------------------ */
 
 .section { padding: 76px 0; }
@@ -72,7 +80,7 @@
 }
 
 @media (min-width: 860px) {
-  .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 56px; }
+  .hero-grid { grid-template-columns: 1fr 0.92fr; gap: 52px; }
 }
 
 .hero h1 {
@@ -99,58 +107,35 @@
   max-width: 34ch;
 }
 
-/* ---- la maquette de téléphone ------------------------------------------ */
-/* Règle reprise de `chartLocked.sampleLabel` (copy.md §13) : une illustration
-   ne prend JAMAIS l'apparence d'un écran réel, et elle est nommée comme
-   maquette à l'œil comme au lecteur d'écran. Aucune app n'est publiée, donc
-   aucune capture n'existe : ce cadre ne contient que de la géométrie. */
+/* ---- le visuel du hero ------------------------------------------------- */
+/* Image marketing fournie par la designer, pas une maquette interne : elle
+   porte un `alt` descriptif normal et n'est pas masquée au lecteur d'écran.
+   La règle `chartLocked.sampleLabel` ne s'y applique pas — elle protège un
+   utilisateur DANS l'app contre la confusion avec ses propres données, or
+   personne ne peut confondre un visuel de site avec des données qu'il n'a
+   pas encore. L'étiquette « Mockup » et l'`aria-hidden` tombent avec elle.
 
-.mockup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
+   Le rapport largeur/hauteur suit l'image fournie, jamais l'inverse. */
 
-.mockup-frame {
+.hero-visual {
+  display: block;
   width: 100%;
-  max-width: 268px;
-  aspect-ratio: 9 / 18.5;
-  border-radius: 40px;
-  padding: 10px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-card-raised);
+  max-width: 520px;
+  margin: 0 auto;
+  border-radius: 26px;
+  /* Plaque : transparente en clair, dégradé clair en sombre. C'est ce qui
+     rend lisible l'encre cuite dans l'image, mesurée à 1,11:1 sur le fond
+     sombre. Voir `--visual-plate` dans site.css. */
+  background: var(--visual-plate);
 }
 
-.mockup-screen {
-  height: 100%;
-  border-radius: 31px;
-  background: var(--bg-page);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 26px;
-  padding: 26px 22px;
-  overflow: hidden;
-}
-
-.mockup-bar {
-  height: 10px;
-  border-radius: 99px;
-  background: var(--accent-action);
-}
-.mockup-bar-2 { width: 62%; opacity: 0.42; }
-.mockup-bar-3 { width: 38%; opacity: 0.22; }
-
-.mockup-line { width: 100%; height: auto; display: block; }
-
-.mockup-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  color: var(--ink-tertiary);
+.hero-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Rapport de `danio-home.webp` : 1120 × 1091. Déclaré pour que la page ne
+     saute pas pendant le chargement. */
+  aspect-ratio: 1120 / 1091;
 }
 
 /* ---- 2 · FONCTIONNALITÉS ----------------------------------------------- */

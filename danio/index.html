@@ -31,7 +31,7 @@
   .c-custom   { --chip: #332288; }
 </style>
 </head>
-<body>
+<body class="landing">
 
 <header class="site-header">
   <div class="wrap"><a class="wordmark" href="/">NoonieApp</a></div>
@@ -54,32 +54,14 @@
           <span class="store-badge">Coming soon on the App Store</span>
         </div>
 
-        <!-- MAQUETTE, jamais une capture.
-             Aucune app n'est publiée, donc aucune capture n'existe. Le cadre ne
-             contient que de la géométrie : trois barres et une courbe sans axe,
-             sans graduation et sans valeur — rien qui puisse se lire comme un
-             écran réel. Règle de `chartLocked.sampleLabel`, copy.md §13. -->
-        <div class="mockup">
-          <div class="mockup-frame" aria-hidden="true">
-            <div class="mockup-screen">
-              <div>
-                <div class="mockup-bar"></div>
-              </div>
-              <svg class="mockup-line" viewBox="0 0 200 92" fill="none"
-                   xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <path d="M4 72 C 34 68, 52 34, 78 40 S 122 76, 146 44 S 182 16, 196 22"
-                      stroke="#0072B2" stroke-width="3" stroke-linecap="round" fill="none"/>
-                <path d="M4 84 C 38 82, 60 62, 88 66 S 138 88, 196 58"
-                      stroke="#009E73" stroke-width="3" stroke-linecap="round"
-                      stroke-dasharray="2 6" fill="none"/>
-              </svg>
-              <div>
-                <div class="mockup-bar mockup-bar-2"></div>
-                <div class="mockup-bar mockup-bar-3" style="margin-top:9px"></div>
-              </div>
-            </div>
-          </div>
-          <p class="mockup-label">Mockup</p>
+        <!-- Visuel marketing fourni par la designer
+             (`apps/aquarium/design/landing/home.png`, monorepo Danio),
+             redimensionné pour le web. Ce n'est PAS une maquette interne :
+             `alt` descriptif, aucun `aria-hidden`, aucune étiquette. Voir le
+             commentaire de `.hero-visual` dans app-page.css. -->
+        <div class="hero-visual">
+          <img src="/assets/danio-home.webp" width="1120" height="1091"
+               alt="Danio's home screen: water parameters and fish stock.">
         </div>
 
       </div>
