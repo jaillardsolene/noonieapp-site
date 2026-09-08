@@ -160,34 +160,6 @@ strong { font-weight: 700; }
   color: var(--ink-tertiary);
 }
 
-/* ---- carte app ---- */
-
-.card {
-  display: block;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: var(--shadow-card);
-  text-decoration: none;
-  color: inherit;
-}
-
-a.card:hover { box-shadow: 0 10px 30px rgba(59, 59, 79, 0.14); }
-
-.card-title {
-  margin: 0 0 6px;
-  font-size: 21px;
-  font-weight: 800;
-  letter-spacing: -0.4px;
-}
-
-.card-sub {
-  margin: 0 0 18px;
-  color: var(--ink-secondary);
-  font-size: 15px;
-}
-
 /* ---- badge App Store ---------------------------------------------------
    Image fournie par Apple (`design/landing/03.png`), reproduite telle quelle,
    jamais redessinée. Elle porte sa bordure grise d'origine, ce qui la garde
@@ -257,54 +229,96 @@ a.card:hover { box-shadow: 0 10px 30px rgba(59, 59, 79, 0.14); }
 .home-hero p:last-child { margin: 0; color: var(--ink-secondary); font-size: 17px; }
 
 /* ---- ENTRÉE D'APP — le patron du portefeuille ---------------------------
-   Une entrée par app. Pour en ajouter une (terrarium, ruche), on duplique ce
-   bloc et on change l'icône, le nom, le sous-titre et le visuel : aucune
-   règle de mise en page ne bouge, et le filet du haut sépare les entrées
-   entre elles. Aucune carte à ombre : le visuel a des pastilles qui
-   débordent, et une carte à `overflow: hidden` les couperait. */
+   UNE seule carte blanche contient TOUT le contenu de l'app, visuel compris.
+   Traitement de carte du reste du site, repris tel quel : `--surface`, filet
+   `--border`, rayon 22 px (le rayon de référence d'`ux.md` §3.7) et
+   `--shadow-card`.
+
+   Pour ajouter une app (terrarium, ruche) : dupliquer ce bloc et changer
+   l'icône, le nom, le sous-titre et le visuel. Aucune règle ne bouge.
+
+   ⚠️ La carte n'est PAS un lien. Le seul lien vers la page de l'app est le
+   cercle-flèche posé à côté du nom : cliquer ailleurs dans la carte ne
+   déclenche rien. */
 
 .app-entry {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 26px;
   align-items: center;
-  margin-top: 48px;
-  padding-top: 40px;
-  border-top: 1px solid var(--border);
-  text-decoration: none;
-  color: inherit;
+  margin-top: 44px;
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-card);
+  text-align: left;
 }
 
 @media (min-width: 760px) {
-  .app-entry { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 40px; }
+  .app-entry {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 36px;
+    padding: 38px 40px;
+  }
 }
 
-.app-entry-icon {
-  width: 76px;
-  height: 76px;
-  display: block;
-  margin-bottom: 18px;
+/* icône, nom et cercle-flèche sur UNE ligne, centrés l'un sur l'autre */
+.app-entry-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
 }
+
+.app-entry-icon { width: 56px; height: 56px; display: block; flex: none; }
 
 .app-entry-name {
-  margin: 0 0 4px;
+  margin: 0;
   font-size: 27px;
   font-weight: 800;
   letter-spacing: -0.6px;
 }
 
+/* Cercle-flèche : contour gris NEUTRE, jamais une couleur d'accent — le
+   dégradé cyan porte l'action ailleurs, et cette pastille doit rester
+   discrète à côté du nom. */
+.app-entry-go {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--ink-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-secondary);
+  text-decoration: none;
+}
+
+.app-entry-go:hover { border-color: var(--ink-secondary); color: var(--ink-primary); }
+
+.app-entry-go:focus-visible {
+  outline: 2px solid var(--accent-link);
+  outline-offset: 3px;
+}
+
+.app-entry-go svg { width: 13px; height: 13px; display: block; }
+
+/* Même teinte que la dernière ligne du header (`--ink-secondary`), comme
+   demandé — jamais une couleur d'accent. */
 .app-entry-sub {
-  margin: 0 0 22px;
+  margin: 0 0 20px;
   color: var(--ink-secondary);
   font-size: 16px;
 }
 
 .app-entry-art { width: 100%; height: auto; display: block; }
 
-a.app-entry:hover .app-entry-name { color: var(--accent-link); }
-
+/* ⚠️ En dessous de 760 px, le visuel du téléphone DISPARAÎT entièrement :
+   la carte n'a plus qu'une colonne. `loading="lazy"` sur l'image fait que
+   les navigateurs ne la téléchargent pas quand elle n'a pas de rendu. */
 @media (max-width: 759px) {
-  .app-entry { text-align: center; justify-items: center; }
-  .app-entry-icon { margin-inline: auto; }
-  .app-entry .store-badge { margin-inline: auto; }
+  .app-entry-art { display: none; }
+}
 }

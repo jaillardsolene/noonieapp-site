@@ -30,31 +30,48 @@
     </section>
 
     <!-- ================= ENTRÉE D'APP — PATRON DU PORTEFEUILLE =================
-         Pour ajouter une app (terrarium, ruche) : dupliquer ce bloc, changer
-         l'icône, le nom, le sous-titre et le visuel. Rien d'autre.
-         L'entrée entière mène à la page de l'app. -->
-    <a class="app-entry" href="/danio">
+         UNE carte blanche contient tout : l'identité de l'app à gauche, son
+         visuel à droite. Pour ajouter une app, dupliquer ce bloc.
+
+         ⚠️ La carte n'est PAS un lien. Le seul lien vers la page de l'app est
+         le cercle-flèche, à côté du nom. -->
+    <div class="app-entry">
+
       <div>
-        <img class="app-entry-icon" src="/assets/danio-icon.webp"
-             width="220" height="220" alt="Danio app icon.">
-        <p class="app-entry-name">Danio</p>
+        <div class="app-entry-head">
+          <img class="app-entry-icon" src="/assets/danio-icon.webp"
+               width="220" height="220" alt="">
+          <p class="app-entry-name">Danio</p>
+          <!-- Le cercle-flèche est le SEUL lien de la carte. Sans texte
+               visible, il porte son nom accessible en `aria-label`. -->
+          <a class="app-entry-go" href="/danio/" aria-label="Open Danio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" focusable="false">
+              <path d="M5 12h13M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
         <p class="app-entry-sub">Aquarium Care Tracker</p>
 
         <!-- ⚠️ LIEN APP STORE À BRANCHER ICI À LA PUBLICATION.
-             Le badge n'a aujourd'hui AUCUN lien propre : l'app n'est pas
-             publiée, aucune fiche n'existe. Il hérite du lien de l'entrée,
-             qui mène à /danio. Le jour de la publication, l'envelopper dans
-             un <a href="https://apps.apple.com/app/id…"> — et, ce jour-là,
-             sortir cette image du <a class="app-entry"> pour qu'un tap sur
-             le badge n'aille plus vers /danio. -->
+             Le badge n'a AUCUN lien aujourd'hui, et il n'en hérite plus
+             d'aucun depuis que la carte a cessé d'être un lien : l'app n'est
+             pas publiée, aucune fiche n'existe. Le jour venu, l'envelopper
+             dans <a href="https://apps.apple.com/app/id…">. -->
         <img class="store-badge" src="/assets/app-store-badge.webp"
              width="400" height="119" alt="Download on the App Store">
       </div>
 
+      <!-- Visuel de l'app. Retiré entièrement sous 760 px (voir
+           `.app-entry-art` dans site.css) ; `loading="lazy"` évite de le
+           télécharger là où il ne s'affiche pas. -->
       <img class="app-entry-art" src="/assets/danio-app.webp"
-           width="1240" height="839"
+           width="1240" height="839" loading="lazy"
            alt="Danio's home screen: water parameters and fish stock.">
-    </a>
+
+    </div>
 
   </div>
 </main>
