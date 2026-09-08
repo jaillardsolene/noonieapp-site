@@ -14,7 +14,11 @@
   --accent-link:   #62629F;
   --accent-action: linear-gradient(135deg, #25C6DB 0%, #39A6EA 100%);
   --accent-label:  #08333C;
+  --ink-muted:     #8282A1;
   --shadow-card:   0 6px 16px rgba(59, 59, 79, 0.10);
+  --shadow-card-raised: 0 10px 30px rgba(59, 59, 79, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.70);
+  /* §3.8, halo radial de matière — transcrit tel quel */
+  --halo-action:   radial-gradient(circle, rgba(37, 198, 219, 0.32), rgba(37, 198, 219, 0) 70%);
   --warn-bg:       rgba(213, 94, 0, 0.10);
   --warn-border:   rgba(213, 94, 0, 0.22);
   --warn-ink:      #B44E00;
@@ -29,7 +33,10 @@
     --surface:       #3E3E4E;
     --border:        rgba(255, 255, 255, 0.12);  /* dérivé */
     --accent-link:   #9E9ED4;
+    --ink-muted:     #7E7E9C;                /* dérivé */
     --shadow-card:   0 6px 16px rgba(0, 0, 0, 0.28);
+    --shadow-card-raised: 0 10px 30px rgba(0, 0, 0, 0.34), inset 0 1px 1px rgba(255, 255, 255, 0.06);
+    --halo-action:   radial-gradient(circle, rgba(37, 198, 219, 0.16), rgba(37, 198, 219, 0) 70%);
     --warn-bg:       rgba(224, 169, 60, 0.12);
     --warn-border:   rgba(224, 169, 60, 0.28);
     --warn-ink:      #E0A93C;
@@ -40,11 +47,15 @@
 
 html { -webkit-text-size-adjust: 100%; }
 
+/* Le dégradé n'est PAS `background-attachment: fixed` : il s'étire sur toute la
+   hauteur du document, donc descendre la page, c'est descendre dans l'eau — de la
+   surface claire au fond. C'est la matière du domaine portée par la mise en page,
+   pas par une icône. Sur une app 2 (terre, paille), le même dispositif rend la
+   même chose avec ses propres arrêts : seul --bg-page change. */
 body {
   margin: 0;
   min-height: 100vh;
   background: var(--bg-page);
-  background-attachment: fixed;
   color: var(--ink-primary);
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   font-weight: 500;

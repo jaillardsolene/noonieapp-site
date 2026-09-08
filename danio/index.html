@@ -10,6 +10,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/app-page.css">
+<style>
+  /* ------------------------------------------------------------------
+     LA SEULE PARTIE PROPRE À DANIO DE TOUTE CETTE PAGE.
+     Couleurs de courbe des neuf paramètres, transcrites telles quelles
+     d'`ux.md` §3.6 (Okabe-Ito + extensions Paul Tol), dans l'ordre
+     d'affichage que ce même §3.6 fixe.
+     Une app 2 remplace ce bloc par le sien — ou le supprime si elle n'a
+     pas de pastilles : la mise en page ne bouge pas.
+     ------------------------------------------------------------------ */
+  .c-ph       { --chip: #0072B2; }
+  .c-ammonia  { --chip: #CC79A7; }
+  .c-nitrite  { --chip: #E69F00; }
+  .c-nitrate  { --chip: #009E73; }
+  .c-temp     { --chip: #D55E00; }
+  .c-gh       { --chip: #56B4E9; }
+  .c-kh       { --chip: #9C7A00; }
+  .c-tds      { --chip: #661100; }
+  .c-custom   { --chip: #332288; }
+</style>
 </head>
 <body>
 
@@ -18,22 +38,183 @@
 </header>
 
 <main>
-  <div class="wrap">
-    <h1>Danio</h1>
-    <p class="lede">Track your aquarium's water, feedings, and maintenance — nothing else.</p>
 
-    <p>Danio logs what a freshwater tank actually needs day to day: water parameters (pH, ammonia, nitrite, nitrate, temperature, GH, KH, TDS, plus one custom parameter), water changes, feedings, and livestock — species typed in by hand, no closed database to hit a wall on. Maintenance tasks repeat on the schedule you set, with reminders when something's due.</p>
+  <!-- ================= 1 · HERO ================= -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
 
-    <p>One tank, unlimited entries, import and export: free. Unlimited tanks and the full parameter charts: unlocked with a monthly, yearly, or one-time purchase — family sharing included on all three.</p>
+        <div>
+          <h1>Danio</h1>
+          <!-- sous-titre : noonieapp-site-content-v1.md, /danio -->
+          <p class="hero-lede">Track your aquarium's water, feedings, and maintenance — nothing else.</p>
+          <!-- 3e paragraphe du même document, mot pour mot -->
+          <p class="hero-note">Everything you enter stays on your device. No account, no server.</p>
+          <!-- Placeholder : remplacer par le lien App Store réel à la publication. -->
+          <span class="store-badge">Coming soon on the App Store</span>
+        </div>
 
-    <p>Everything you enter stays on your device. No account, no server.</p>
+        <!-- MAQUETTE, jamais une capture.
+             Aucune app n'est publiée, donc aucune capture n'existe. Le cadre ne
+             contient que de la géométrie : trois barres et une courbe sans axe,
+             sans graduation et sans valeur — rien qui puisse se lire comme un
+             écran réel. Règle de `chartLocked.sampleLabel`, copy.md §13. -->
+        <div class="mockup">
+          <div class="mockup-frame" aria-hidden="true">
+            <div class="mockup-screen">
+              <div>
+                <div class="mockup-bar"></div>
+              </div>
+              <svg class="mockup-line" viewBox="0 0 200 92" fill="none"
+                   xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M4 72 C 34 68, 52 34, 78 40 S 122 76, 146 44 S 182 16, 196 22"
+                      stroke="#0072B2" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <path d="M4 84 C 38 82, 60 62, 88 66 S 138 88, 196 58"
+                      stroke="#009E73" stroke-width="3" stroke-linecap="round"
+                      stroke-dasharray="2 6" fill="none"/>
+              </svg>
+              <div>
+                <div class="mockup-bar mockup-bar-2"></div>
+                <div class="mockup-bar mockup-bar-3" style="margin-top:9px"></div>
+              </div>
+            </div>
+          </div>
+          <p class="mockup-label">Mockup</p>
+        </div>
 
-    <!-- Placeholder : captures d'écran à ajouter en phase 5, quand elles existent. -->
-    <!-- Placeholder : remplacer par le lien App Store réel à la publication. -->
-    <p><span class="store-badge">Coming soon on the App Store</span></p>
+      </div>
+    </div>
+  </section>
 
-    <p><a href="/danio/privacy">Privacy Policy</a><span class="sep">·</span><a href="/danio/support">Support</a></p>
-  </div>
+  <!-- ================= 2 · FONCTIONNALITÉS =================
+       Les trois rangées ci-dessous NE SONT PAS des fonctionnalités nouvelles :
+       elles découpent, mot pour mot, le premier paragraphe de /danio dans
+       noonieapp-site-content-v1.md. Le titre de section est sa proposition
+       d'ouverture, verbatim. Rien n'est ajouté, et rien du paragraphe n'est
+       laissé de côté. -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Danio logs what a freshwater tank actually needs day to day</h2>
+
+      <ol class="features">
+
+        <li class="feature">
+          <h3>Water parameters</h3>
+          <div>
+            <p>pH, ammonia, nitrite, nitrate, temperature, GH, KH, TDS, plus one custom parameter.</p>
+            <!-- Neuf pastilles, dans l'ordre d'affichage d'`ux.md` §3.6. La
+                 couleur ne porte jamais l'information seule : le nom est écrit
+                 à côté du point. -->
+            <ul class="chips">
+              <li class="chip c-ph">pH</li>
+              <li class="chip c-ammonia">Ammonia</li>
+              <li class="chip c-nitrite">Nitrite</li>
+              <li class="chip c-nitrate">Nitrate</li>
+              <li class="chip c-temp">Temperature</li>
+              <li class="chip c-gh">GH</li>
+              <li class="chip c-kh">KH</li>
+              <li class="chip c-tds">TDS</li>
+              <li class="chip c-custom">Custom</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="feature">
+          <h3>Livestock</h3>
+          <div>
+            <p>Species typed in by hand, no closed database to hit a wall on.</p>
+          </div>
+        </li>
+
+        <li class="feature">
+          <h3>Maintenance and reminders</h3>
+          <div>
+            <p>Water changes and feedings. Maintenance tasks repeat on the schedule you set, with reminders when something's due.</p>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= 3 · GRATUIT / PAYANT =================
+       Deuxième paragraphe de /danio, coupé en deux. Le titre de section est le
+       libellé déjà écrit sur /danio/support, verbatim. -->
+  <section class="section">
+    <div class="wrap">
+      <h2>What's free vs. paid</h2>
+
+      <div class="plans">
+        <div class="plan">
+          <p class="plan-name">Free</p>
+          <p>One tank, unlimited entries, import and export.</p>
+        </div>
+        <div class="plan plan-paid">
+          <p class="plan-name">Paid</p>
+          <p>Unlimited tanks and the full parameter charts: unlocked with a monthly, yearly, or one-time purchase — family sharing included on all three.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4 · FAQ =================
+       Les six entrées sont celles de /danio/support, reprises mot pour mot :
+       l'intitulé en gras devient la question, le texte qui suit devient la
+       réponse. Aucune question n'est ajoutée. Accordéon en `<details>` natif,
+       donc sans une ligne de JavaScript. -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Danio Support</h2>
+
+      <div class="faq">
+
+        <details class="faq-item">
+          <summary>Restore a purchase (new phone, reinstalled the app)</summary>
+          <p class="faq-answer">Settings → Restore Purchases. Works for lifetime and subscriptions.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Cancel a subscription</summary>
+          <p class="faq-answer">Subscriptions are managed by Apple, not by Danio. iPhone Settings → [your name] → Subscriptions → Danio → Cancel.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Refunds</summary>
+          <p class="faq-answer">Handled by Apple, not by Danio. Request one at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Move to a new device</summary>
+          <p class="faq-answer">Your data restores automatically with your iCloud backup, or use Export/Import inside the app.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What's free vs. paid</summary>
+          <p class="faq-answer">One tank with unlimited entries and import/export — free. Unlimited tanks and the full parameter charts — unlocked with any plan.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Deleting the app</summary>
+          <p class="faq-answer">Deletes its data. There's no account to close, because there's no account.</p>
+        </details>
+
+      </div>
+
+      <p style="margin-top:24px"><a href="/danio/support">Danio Support</a><span class="sep">·</span><a href="/danio/privacy">Privacy Policy</a></p>
+    </div>
+  </section>
+
+  <!-- ================= 5 · CTA DE FIN ================= -->
+  <section class="closing">
+    <div class="wrap">
+      <h2>Danio</h2>
+      <!-- « Freshwater aquarium tracker » : la carte de l'accueil, verbatim. -->
+      <p>Freshwater aquarium tracker</p>
+      <!-- Placeholder : remplacer par le lien App Store réel à la publication. -->
+      <span class="store-badge">Coming soon on the App Store</span>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">

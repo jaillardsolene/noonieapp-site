@@ -1,0 +1,356 @@
+/* ============================================================================
+   PATRON DE PAGE APP — réutilisable pour toute app du portefeuille.
+
+   Ce fichier ne contient AUCUNE couleur propre à une app. Il ne lit que les
+   variables de `site.css`. Une app 2 (terrarium, ruche…) reprend cette page
+   telle quelle : elle change les tokens dans `site.css` (ou les redéfinit sur
+   `:root` dans sa propre page) et la mise en page ne bouge pas d'un pixel.
+
+   Le seul apport spécifique à une app est la couleur de ses pastilles de
+   paramètre, déclarée en `<style>` dans sa page — voir `/danio/index.html`.
+
+   Ce que le patron NE porte PAS, par décision : pas de logos clients, pas de
+   témoignages, pas de formulaire d'inscription. Une app sans publication n'a
+   ni clients ni avis, et il n'y a pas de serveur pour recevoir une adresse.
+   ========================================================================= */
+
+/* ---- rythme des sections : on descend dans l'eau ------------------------ */
+
+.section { padding: 76px 0; }
+.section-tight { padding: 56px 0; }
+
+/* Séparation par un filet d'encre très faible, jamais par un trait lumineux :
+   la « ligne d'eau » a été retirée du produit (ux.md §0.1, renversement F) et
+   ce site ne la réintroduit pas par la bande. */
+.section + .section { border-top: 1px solid var(--border); }
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+.section h2 {
+  margin: 0 0 26px;
+  font-size: clamp(23px, 3.4vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  max-width: 20ch;
+}
+
+/* ---- 1 · HERO ---------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  padding: 56px 0 72px;
+  overflow: hidden;
+}
+
+/* Halo radial de §3.8, tel quel. C'est la lumière qui entre par la surface —
+   le seul effet de matière du haut de page. */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -280px; left: 50%;
+  width: 900px; height: 700px;
+  transform: translateX(-50%);
+  background: var(--halo-action);
+  pointer-events: none;
+}
+
+.hero > * { position: relative; }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 56px; }
+}
+
+.hero h1 {
+  margin: 0 0 14px;
+  font-size: clamp(46px, 8.5vw, 68px);
+  font-weight: 800;
+  letter-spacing: -1.8px;
+  line-height: 1.02;
+}
+
+.hero-lede {
+  margin: 0 0 18px;
+  font-size: clamp(19px, 2.6vw, 23px);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.3px;
+  max-width: 22ch;
+}
+
+.hero-note {
+  margin: 0 0 30px;
+  font-size: 16px;
+  color: var(--ink-secondary);
+  max-width: 34ch;
+}
+
+/* ---- la maquette de téléphone ------------------------------------------ */
+/* Règle reprise de `chartLocked.sampleLabel` (copy.md §13) : une illustration
+   ne prend JAMAIS l'apparence d'un écran réel, et elle est nommée comme
+   maquette à l'œil comme au lecteur d'écran. Aucune app n'est publiée, donc
+   aucune capture n'existe : ce cadre ne contient que de la géométrie. */
+
+.mockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.mockup-frame {
+  width: 100%;
+  max-width: 268px;
+  aspect-ratio: 9 / 18.5;
+  border-radius: 40px;
+  padding: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card-raised);
+}
+
+.mockup-screen {
+  height: 100%;
+  border-radius: 31px;
+  background: var(--bg-page);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 26px;
+  padding: 26px 22px;
+  overflow: hidden;
+}
+
+.mockup-bar {
+  height: 10px;
+  border-radius: 99px;
+  background: var(--accent-action);
+}
+.mockup-bar-2 { width: 62%; opacity: 0.42; }
+.mockup-bar-3 { width: 38%; opacity: 0.22; }
+
+.mockup-line { width: 100%; height: auto; display: block; }
+
+.mockup-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+/* ---- 2 · FONCTIONNALITÉS ----------------------------------------------- */
+/* Des rangées pleine largeur séparées par un filet, pas trois cartes
+   identiques : rien ici ne doit ressembler à une grille SaaS. */
+
+.features { margin: 0; padding: 0; list-style: none; counter-reset: feat; }
+
+.feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px 28px;
+  padding: 26px 0;
+  border-top: 1px solid var(--border);
+}
+
+.feature:last-child { border-bottom: 1px solid var(--border); }
+
+@media (min-width: 720px) {
+  .feature { grid-template-columns: 240px 1fr; gap: 8px 36px; }
+}
+
+.feature h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  counter-increment: feat;
+}
+
+.feature h3::before {
+  content: counter(feat, decimal-leading-zero);
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--ink-tertiary);
+}
+
+.feature p { margin: 0; color: var(--ink-secondary); max-width: 52ch; }
+
+/* pastilles de paramètre — couleurs déclarées par l'app dans sa page */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.1px;
+  color: var(--ink-primary);
+}
+
+/* La couleur ne porte JAMAIS l'information seule (ux.md §0.1 A) : le nom du
+   paramètre est toujours écrit à côté de sa pastille, en encre de texte. */
+.chip::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--chip, var(--ink-muted));
+  /* Anneau d'encre très faible : en thème sombre, les teintes les plus
+     profondes de §3.6 (#661100, #332288) se détachent mal du fond de carte.
+     L'anneau délimite le point SANS toucher à sa teinte — aucune variante
+     sombre n'est dérivée, `ux.md` §3.6 n'en donne pas et la construction
+     n'en invente pas. L'information, elle, est portée par le NOM écrit à
+     côté, jamais par la couleur seule. */
+  box-shadow: 0 0 0 1px var(--border);
+  flex: none;
+}
+
+/* ---- 3 · GRATUIT / PAYANT ---------------------------------------------- */
+/* Deux panneaux de POIDS DIFFÉRENT, jamais deux cartes jumelles : le payant
+   porte le liseré d'accent, le gratuit reste nu. */
+
+.plans {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 720px) { .plans { grid-template-columns: 1fr 1fr; gap: 22px; } }
+
+.plan {
+  border-radius: 22px;
+  padding: 26px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.plan-paid {
+  border-color: transparent;
+  box-shadow: var(--shadow-card);
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    var(--accent-action) border-box;
+  border: 1.5px solid transparent;
+}
+
+.plan-name {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+.plan-paid .plan-name {
+  background: var(--accent-action);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.plan p { margin: 0; font-size: 16px; line-height: 1.55; }
+
+/* ---- 4 · FAQ EN ACCORDÉON ---------------------------------------------- */
+/* `<details>` natif : l'accordéon ne coûte pas une ligne de JavaScript. */
+
+.faq { border-top: 1px solid var(--border); }
+
+.faq-item { border-bottom: 1px solid var(--border); }
+
+.faq-item > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 34px 18px 0;
+  position: relative;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.faq-item > summary::-webkit-details-marker { display: none; }
+
+.faq-item > summary:hover { color: var(--accent-link); }
+
+.faq-item > summary:focus-visible {
+  outline: 2px solid var(--accent-link);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* chevron : deux traits, tourné à l'ouverture */
+.faq-item > summary::after {
+  content: "";
+  position: absolute;
+  right: 6px; top: 24px;
+  width: 9px; height: 9px;
+  border-right: 2px solid var(--ink-tertiary);
+  border-bottom: 2px solid var(--ink-tertiary);
+  transform: rotate(45deg);
+  transition: transform 140ms ease;
+}
+
+.faq-item[open] > summary::after { transform: rotate(-135deg); top: 28px; }
+
+.faq-answer {
+  margin: 0;
+  padding: 0 0 20px;
+  color: var(--ink-secondary);
+  max-width: 60ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item > summary::after { transition: none; }
+}
+
+/* ---- 5 · CTA DE FIN ---------------------------------------------------- */
+/* Le fond du document est à son point le plus profond ici : la bande finale
+   ne pose aucune couleur, elle laisse le dégradé arriver au bout. */
+
+.closing { text-align: center; padding: 84px 0 72px; }
+
+.closing h2 {
+  margin: 0 0 8px;
+  max-width: none;
+  font-size: clamp(30px, 5vw, 40px);
+  letter-spacing: -1px;
+}
+
+.closing p { margin: 0 0 26px; color: var(--ink-secondary); font-size: 17px; }
+
+.closing .store-badge { font-size: 16px; padding: 15px 26px; }
+
+@media (max-width: 520px) {
+  .section { padding: 54px 0; }
+  .hero { padding: 36px 0 56px; }
+  .closing { padding: 62px 0 54px; }
+}
