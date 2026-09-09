@@ -55,5 +55,4 @@ ne bouge pas.
 
 - `mentions-legales/` : SIRET, nom, adresse, hébergeur — page marquée
   incomplète en clair.
-- `danio/privacy/` : date de « Last updated ».
 - `danio/` et `/` : lien App Store réel, et captures d'écran.
