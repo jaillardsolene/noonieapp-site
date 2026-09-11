@@ -56,3 +56,22 @@ ne bouge pas.
 - `mentions-legales/` : SIRET, nom, adresse, hébergeur — page marquée
   incomplète en clair.
 - `danio/` et `/` : lien App Store réel, et captures d'écran.
+
+## Notes internes
+
+*Non destinées aux visiteurs. Elles vivaient en commentaire dans le HTML servi ;
+elles sont remontées ici le 11/09/2026, pour ne plus être lisibles par qui affiche
+le source d'une page publique.*
+
+### `danio/privacy/` — relecture juridique *(note d'origine, remontée le 11/09/2026)*
+
+> « Pas de relecture juridique faite ici (je ne suis pas juriste) — le bloc
+> "Your rights" est volontairement minimal ; à faire vérifier avant publication
+> si tu veux du RGPD en bonne et due forme. »
+
+**Toujours vraie au 11/09/2026**, et la page a pourtant beaucoup grossi ce jour-là :
+bases légales (Royaume-Uni/UE), transferts vers les États-Unis, droit de plainte
+auprès de l'ICO, durées de conservation, liens vers les politiques des trois tiers.
+**Aucune de ces sections n'a été relue par un juriste** — c'est une décision assumée
+de la designer, à revoir quand l'activité aura un statut déclaré (voir aussi
+`mentions-legales/` ci-dessus).
